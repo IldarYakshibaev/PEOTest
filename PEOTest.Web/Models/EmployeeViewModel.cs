@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PEOTest.BLL.DTO
+namespace PEOTest.Web.Models
 {
-    public class EmployeeDTO
+    public class EmployeeViewModel
     {
         public int Id { get; set; }
         public string Surname { get; set; }
@@ -13,6 +14,6 @@ namespace PEOTest.BLL.DTO
         public string Phone { get; set; }
         public string Email { get; set; }
 
-        public virtual ICollection<CompEmpDTO> CompEmps { get; set; }
+        public virtual ICollection<CompEmpViewModel> CompEmps { get; set; }
     }
 }

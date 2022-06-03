@@ -6,9 +6,14 @@ namespace PEOTest.DAL.Entities
 {
     public class CompEmp
     {
-        public Employee Employee { get; set; }
-        public Company Company { get; set; }
-        public Post Post { get; set; }
-        public Subdivision Subdivision { get; set; }
+        public int Id { get; set; }
+        public int EmployeeId { get; set; }
+        public int CompanyId { get; set; }
+        public int PostId { get; set; }
+        public int SubdivisionId { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Company Company { get; set; }
+        public virtual Post Post { get; set; }
+        public virtual Subdivision Subdivision { get; set; }
     }
 }

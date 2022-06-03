@@ -6,9 +6,14 @@ namespace PEOTest.BLL.DTO
 {
     public class CompEmpDTO
     {
-        public EmployeeDTO EmployeeDTO { get; set; }
-        public CompanyDTO CompanyDTO { get; set; }
-        public PostDTO PostDTO { get; set; }
-        public SubdivisionDTO SubdivisionDTO { get; set; }
+        public int Id { get; set; }
+        public int EmployeeId { get; set; }
+        public int CompanyId { get; set; }
+        public int PostId { get; set; }
+        public int SubdivisionId { get; set; }
+        /*public EmployeeDTO Employee { get; set; }
+        public CompanyDTO Company { get; set; }
+        public PostDTO Post { get; set; }
+        public SubdivisionDTO Subdivision { get; set; }*/
     }
 }

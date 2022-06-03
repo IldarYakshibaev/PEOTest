@@ -1,7 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model IEnumerable<CompEmpViewModel>
 
 <div class="text-center">
-
+    <h1>Список пользователей</h1>
+    <table class="table">
+        <tr>
+            <th>
+                Название компании
+            </th>
+            <th>
+                Подразделение
+            </th>
+            <th>
+                Должность
+            </th>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Имя
+            </th>
+            <th>
+                Отчество
+            </th>
+            <th>
+                Телефон
+            </th>
+            <th>
+                Почта
+            </th>
+        </tr>
+        @foreach (CompEmpViewModel emp in Model)
+        {
+    <tr>
+        <td>@emp.Company.Name</td>
+        <td>@emp.Subdivision.Name</td>
+        <td>@emp.Post.Name</td>
+        <td>@emp.Employee.Surname</td>
+        <td>@emp.Employee.Name</td>
+        <td>@emp.Employee.Patronymic</td>
+        <td>@emp.Employee.Phone</td>
+        <td>@emp.Employee.Email</td>
+    </tr>
+        }
+    </table>
 </div>

@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PEOTest.BLL.Interfaces;
+using PEOTest.BLL.Services;
 using PEOTest.DAL;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,8 @@ namespace PEOTest.Web
             var connection = Configuration.GetConnectionString("PostgreDbContext");
 
             services.AddDbContext<EFDbContext>(options => options.UseNpgsql(connection));
+
+            services.AddTransient<ICompEmpService, CompEmpService>();
 
             services.AddControllersWithViews();
         }

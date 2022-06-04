@@ -26,34 +26,29 @@ namespace PEOTest.BLL.Services
                 SampleDate();
             }
 
-
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<CompEmp, CompEmpDTO>())
-                    .CreateMapper();
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmp, CompEmpDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Company, CompanyDTO>();
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<Subdivision, SubdivisionDTO>();
+            })
+                .CreateMapper();
             return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.ToList());
         }
 
         private void SampleDate()
         {
 
-            Company company = new Company()
-            {
-                Name = "Рога и копыта"
-            };
+            Company company = new Company(){ Name = "Рога и копыта" };
             _context.Company.Add(company);
             _context.SaveChanges();
 
-            Post post = new Post()
-            {
-                Name = "Директор"
-            };
+            Post post = new Post(){ Name = "Директор" };
             _context.Post.Add(post);
             _context.SaveChanges();
 
-            Subdivision subdivision = new Subdivision()
-            {
-                Name = "Подразделение 1"
-            };
+            Subdivision subdivision = new Subdivision(){ Name = "Подразделение 1" };
             _context.Subdivision.Add(subdivision);
             _context.SaveChanges();
 
@@ -69,6 +64,52 @@ namespace PEOTest.BLL.Services
             _context.SaveChanges();
 
             CompEmp compEmp = new CompEmp()
+            {
+                Company = company,
+                Employee = employee,
+                Post = post,
+                Subdivision = subdivision
+            };
+            _context.CompEmp.Add(compEmp);
+            _context.SaveChanges();
+
+            post = new Post() { Name = "Работник" };
+            _context.Post.Add(post);
+            _context.SaveChanges();
+
+            employee = new Employee()
+            {
+                Surname = "Петров",
+                Name = "Петр",
+                Patronymic = "Петрович",
+                Email = "petrov@mail.ru",
+                Phone = "89170000000"
+            };
+            _context.Employee.Add(employee);
+            _context.SaveChanges();
+
+            compEmp = new CompEmp()
+            {
+                Company = company,
+                Employee = employee,
+                Post = post,
+                Subdivision = subdivision
+            };
+            _context.CompEmp.Add(compEmp);
+            _context.SaveChanges();
+
+            employee = new Employee()
+            {
+                Surname = "Новикова",
+                Name = "Наталья",
+                Patronymic = "Александровна",
+                Email = "novikova@mail.ru",
+                Phone = "89170000000"
+            };
+            _context.Employee.Add(employee);
+            _context.SaveChanges();
+
+            compEmp = new CompEmp()
             {
                 Company = company,
                 Employee = employee,

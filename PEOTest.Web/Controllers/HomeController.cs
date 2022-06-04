@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PEOTest.BLL.DTO;
 using PEOTest.BLL.Interfaces;
@@ -23,13 +24,20 @@ namespace PEOTest.Web.Controllers
             _compEmpService = compEmpService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             IEnumerable<CompEmpDTO> compEmpDTO = _compEmpService.GetCompEmps();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<CompEmpDTO, CompEmpViewModel>()).CreateMapper();
-            List<CompEmpViewModel> model = mapper.Map<IEnumerable<CompEmpDTO>, List<CompEmpViewModel>>(compEmpDTO);
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();
+                cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();
+                cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
+                cfg.CreateMap<CompanyDTO, CompanyViewModel>();
+                cfg.CreateMap<PostDTO, PostViewModel>();
+                cfg.CreateMap<SubdivisionDTO, SubdivisionViewModel>();
+            }).CreateMapper();
+            IQueryable<CompEmpViewModel> model = mapper.Map<IEnumerable<CompEmpDTO>, IQueryable<CompEmpViewModel>>(compEmpDTO);
 
-            return View(model);
+            return View(await model.ToListAsync());
         }
 
         public IActionResult Privacy()

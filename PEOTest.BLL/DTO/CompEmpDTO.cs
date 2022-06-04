@@ -11,9 +11,9 @@ namespace PEOTest.BLL.DTO
         public int CompanyId { get; set; }
         public int PostId { get; set; }
         public int SubdivisionId { get; set; }
-        /*public EmployeeDTO Employee { get; set; }
+        public EmployeeDTO Employee { get; set; }
         public CompanyDTO Company { get; set; }
         public PostDTO Post { get; set; }
-        public SubdivisionDTO Subdivision { get; set; }*/
+        public SubdivisionDTO Subdivision { get; set; }
     }
 }

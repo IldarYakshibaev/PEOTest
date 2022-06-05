@@ -32,6 +32,10 @@ namespace PEOTest.Web
             services.AddDbContext<EFDbContext>(options => options.UseNpgsql(connection));
 
             services.AddTransient<ICompEmpService, CompEmpService>();
+            services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ISubdivisionService, SubdivisionService>();
 
             services.AddControllersWithViews();
         }

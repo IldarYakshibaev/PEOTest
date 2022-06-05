@@ -1,0 +1,12 @@
+﻿@model PEOTest.Web.Models.EmployeeModel
+
+<h2>Добавление пользователя</h2>
+<form asp-action="create" asp-controller="home">
+    <p>
+        <label asp-for="Post">Должность</label>
+        <select asp-for="Post" asp-items="Model.Post"></select>
+    </p>
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+</form>

@@ -19,7 +19,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<CompEmpDTO> GetCompEmps()
+        public IEnumerable<CompEmpDTO> GetAllCompEmp()
         {
             if (!_context.CompEmp.Any())
             {

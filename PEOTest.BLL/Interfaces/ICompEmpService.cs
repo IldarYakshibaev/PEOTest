@@ -7,7 +7,7 @@ namespace PEOTest.BLL.Interfaces
 {
     public interface ICompEmpService
     {
-        IEnumerable<CompEmpDTO> GetCompEmps();
+        IEnumerable<CompEmpDTO> GetAllCompEmp();
         void Dispose();
     }
 }

@@ -5,6 +5,7 @@
 
 <div class="text-center">
     <h1>Список пользователей</h1>
+    <p class="create-user"><a asp-action="Create">Добавить пользователя</a></p>
     <table class="table">
         <tr>
             <th>
@@ -34,16 +35,16 @@
         </tr>
         @foreach (CompEmpViewModel emp in Model)
         {
-    <tr>
-        <td>@emp.Company.Name</td>
-        <td>@emp.Subdivision.Name</td>
-        <td>@emp.Post.Name</td>
-        <td>@emp.Employee.Surname</td>
-        <td>@emp.Employee.Name</td>
-        <td>@emp.Employee.Patronymic</td>
-        <td>@emp.Employee.Phone</td>
-        <td>@emp.Employee.Email</td>
-    </tr>
+            <tr>
+                <td>@emp.Company.Name</td>
+                <td>@emp.Subdivision.Name</td>
+                <td>@emp.Post.Name</td>
+                <td>@emp.Employee.Surname</td>
+                <td>@emp.Employee.Name</td>
+                <td>@emp.Employee.Patronymic</td>
+                <td>@emp.Employee.Phone</td>
+                <td>@emp.Employee.Email</td>
+            </tr>
         }
     </table>
 </div>

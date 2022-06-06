@@ -37,16 +37,28 @@ namespace PEOTest.BLL.Services
         }
         public List<SelectListItem> GetAllPostSL()
         {
-            return new List<SelectListItem>(GetAllPost()
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { 
+                Text = "", 
+                Value = "0", 
+                Selected = true 
+            });
+
+            list.AddRange(GetAllPost()
                 .Select(a => new SelectListItem()
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }));
+
+            return list;
         }
         public int CreatePost(PostDTO postDTO)
         {
-
+            if(postDTO.Id == 0 && (postDTO.Name == "" || postDTO.Name == null))
+            {
+                throw new ValidationException("Не введена Должность", "PostId");
+            }
             return 1;
             throw new ValidationException("Ошибка", "");
         }

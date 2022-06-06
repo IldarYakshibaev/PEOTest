@@ -6,6 +6,7 @@
         <label asp-for="PostId">Должность</label>
         <select asp-for="PostId" asp-items="Model.Post"></select>
         <input asp-for="PostName" type="hidden" />
+        <span asp-validation-for="PostName" />
     </p>
     <p>
         <input type="submit" value="Отправить" />

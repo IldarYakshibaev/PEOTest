@@ -57,7 +57,7 @@ namespace PEOTest.BLL.Services
         {
             if(postDTO.Id == 0 && (postDTO.Name == "" || postDTO.Name == null))
             {
-                throw new ValidationException("Не введена Должность", "PostId");
+                throw new ValidationException("Не введена Должность", "PostName");
             }
             return 1;
             throw new ValidationException("Ошибка", "");

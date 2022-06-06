@@ -98,6 +98,8 @@ namespace PEOTest.Web.Controllers
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
+            model.Post = _postService
+                .GetAllPostSL();
             return View(model);
         }
 

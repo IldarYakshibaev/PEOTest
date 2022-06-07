@@ -33,7 +33,8 @@
                 this.input.tooltip("close").attr("title", "");
             }, 2500);
             that.input.autocomplete("instance").term = "";
-        }
+        },
+        inputName: ""
     },
     _create: function () {
         this.wrapper = $("<span>")
@@ -71,6 +72,10 @@
                 this._trigger("select", event, {
                     item: ui.item.option
                 });
+
+                if (this.options.inputName !== "") {
+                    $(this.options.inputName).val(ui.item.value);
+                }
             },
 
             autocompletechange: "_removeIfInvalid"

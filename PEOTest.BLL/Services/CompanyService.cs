@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PEOTest.BLL.DTO;
+using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
 using PEOTest.DAL;
 using PEOTest.DAL.Entities;
@@ -34,12 +35,45 @@ namespace PEOTest.BLL.Services
             return mapper
                 .Map<IEnumerable<Company>, List<CompanyDTO>>(_context.Company.ToList());
         }
-        public SelectList GetAllCompanySL()
+        public IEnumerable<SelectListItem> GetAllCompanySL(int companyId = 0)
         {
-            return new SelectList(GetAllCompany()
-                .Select(a => new SelectListItem() { 
-                    Text = a.Name, Value = a.Id .ToString()
+            List<SelectListItem> list = new List<SelectListItem>();
+            list.Add(new SelectListItem()
+            {
+                Text = "",
+                Value = "0",
+                Selected = companyId == 0 ? true : false
+            });
+
+            list.AddRange(GetAllCompany()
+                .Select(a => new SelectListItem()
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString(),
+                    Selected = companyId == a.Id ? true : false
                 }));
+
+            return list;
+        }
+        public int CreateCompany(CompanyDTO companyDTO)
+        {
+            if (companyDTO.Id == 0 && (companyDTO.Name == "" || companyDTO.Name == null))
+            {
+                throw new ValidationException("Не указана Компания", "CompanyName");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompanyDTO, Company>();
+            })
+                .CreateMapper();
+
+            Company company = mapper
+                .Map<CompanyDTO, Company>(companyDTO);
+
+            _context.Company.Add(company);
+            _context.SaveChanges();
+
+            return company.Id;
         }
 
         public void Dispose()

@@ -1,14 +1,142 @@
 ﻿@model PEOTest.Web.Models.EmployeeModel
+@section Scripts
+{
+    <script src="~/js/employee.js"></script>
+}
 
-<h2>Добавление пользователя</h2>
-<form asp-action="create" asp-controller="home">
+<div class="create-employee-form">
+    <h2>Добавление пользователя</h2>
+    <form asp-action="create" asp-controller="home">
+        <table>
+            <tr>
+                <td>
+                    <label asp-for="CompanyId">Компания</label>
+                </td>
+                <td>
+                    <select asp-for="CompanyId" asp-items="Model.Company"></select>
+                    <input asp-for="CompanyName" type="hidden" />
+                    <span asp-validation-for="CompanyName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="SubdivisionId">Подразделение</label>
+                </td>
+                <td>
+                    <select asp-for="SubdivisionId" asp-items="Model.Subdivision"></select>
+                    <input asp-for="SubdivisionName" type="hidden" />
+                    <span asp-validation-for="SubdivisionName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="PostId">Должность</label>
+                </td>
+                <td>
+                    <select asp-for="PostId" asp-items="Model.Post"></select>
+                    <input asp-for="PostName" type="hidden" />
+                    <span asp-validation-for="PostName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Surname">Фамилия</label>
+                </td>
+                <td>
+                    <input asp-for="Surname" />
+                    <span asp-validation-for="Surname"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Name">Имя</label>
+                </td>
+                <td>
+                    <input asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Patronymic">Отчество</label>
+                </td>
+                <td>
+                    <input asp-for="Patronymic" />
+                    <span asp-validation-for="Patronymic"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Phone">Телефон</label>
+                </td>
+                <td>
+                    <input asp-for="Phone" />
+                    <span asp-validation-for="Phone"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Email">Почта</label>
+                </td>
+                <td>
+                    <input asp-for="Email" />
+                    <span asp-validation-for="Email"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Отправить" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!--
     <p>
-        <label asp-for="PostId">Должность</label>
-        <select asp-for="PostId" asp-items="Model.Post"></select>
-        <input asp-for="PostName" type="hidden" />
-        <span asp-validation-for="PostName" />
-    </p>
-    <p>
-        <input type="submit" value="Отправить" />
-    </p>
-</form>
+    <label asp-for="CompanyId">Компания</label>
+    <select asp-for="CompanyId" asp-items="Model.Company"></select>
+    <input asp-for="CompanyName" type="hidden" />
+    <span asp-validation-for="CompanyName"></span>
+</p>
+<p>
+    <label asp-for="SubdivisionId">Подразделение</label>
+    <select asp-for="SubdivisionId" asp-items="Model.Subdivision"></select>
+    <input asp-for="SubdivisionName" type="hidden" />
+    <span asp-validation-for="SubdivisionName"></span>
+</p>
+<p>
+    <label asp-for="PostId">Должность</label>
+    <select asp-for="PostId" asp-items="Model.Post"></select>
+    <input asp-for="PostName" type="hidden" />
+    <span asp-validation-for="PostName"></span>
+</p>
+<p>
+    <label asp-for="Surname">Фамилия</label>
+    <input asp-for="Surname" />
+    <span asp-validation-for="Surname"></span>
+</p>
+<p>
+    <label asp-for="Name">Имя</label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+</p>
+<p>
+    <label asp-for="Patronymic">Отчество</label>
+    <input asp-for="Patronymic" />
+    <span asp-validation-for="Patronymic"></span>
+</p>
+<p>
+    <label asp-for="Phone">Телефон</label>
+    <input asp-for="Phone" />
+    <span asp-validation-for="Phone"></span>
+</p>
+<p>
+    <label asp-for="Email">Почта</label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+</p>
+<p>
+    <input type="submit" value="Отправить" />
+</p>
+    -->

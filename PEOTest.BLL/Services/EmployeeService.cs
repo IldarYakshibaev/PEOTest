@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PEOTest.BLL.DTO;
+using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
 using PEOTest.DAL;
 using PEOTest.DAL.Entities;
@@ -30,6 +31,41 @@ namespace PEOTest.BLL.Services
             })
                 .CreateMapper();
             return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(_context.Employee.ToList());
+        }
+        public int CreateEmployee(EmployeeDTO employeeDTO)
+        {
+            if (employeeDTO.Surname == "" || employeeDTO.Surname == null)
+            {
+                throw new ValidationException("Не указана Фамилия", "Surname");
+            }
+            if (employeeDTO.Name == "" || employeeDTO.Name == null)
+            {
+                throw new ValidationException("Не указано Имя", "Name");
+            }
+            if (employeeDTO.Patronymic == "" || employeeDTO.Patronymic == null)
+            {
+                throw new ValidationException("Не указано Отчество", "Patronymic");
+            }
+            if (employeeDTO.Phone == "" || employeeDTO.Phone == null)
+            {
+                throw new ValidationException("Не указан Телефон", "Phone");
+            }
+            if (employeeDTO.Email == "" || employeeDTO.Email == null)
+            {
+                throw new ValidationException("Не указана Почта", "Email");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<EmployeeDTO, Employee>();
+            })
+                .CreateMapper();
+            Employee employee = mapper.Map<EmployeeDTO, Employee>(employeeDTO);
+
+            _context.Employee.Add(employee);
+            _context.SaveChanges();
+
+            return employee.Id;
+
         }
 
         public void Dispose()

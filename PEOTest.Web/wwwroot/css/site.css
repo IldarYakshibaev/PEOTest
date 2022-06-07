@@ -89,5 +89,23 @@ body {
 
 .custom-combobox-input {
     margin: 0;
-    padding: 5px 10px;
+    padding: 0px 10px;
+}
+
+.create-employee-form h2 {
+    text-align: center;
+}
+
+.create-employee-form table {
+    margin: auto;
+}
+
+span[data-valmsg-for=CompanyName],
+span[data-valmsg-for=SubdivisionName],
+span[data-valmsg-for=PostName] {
+    margin-left: 30px;
+}
+
+.field-validation-error {
+    color: #b94a48;
 }

@@ -9,7 +9,7 @@ namespace PEOTest.BLL.Interfaces
     public interface IPostService
     {
         IEnumerable<PostDTO> GetAllPost();
-        List<SelectListItem> GetAllPostSL();
+        IEnumerable<SelectListItem> GetAllPostSL(int postId = 0);
         int CreatePost(PostDTO postDTO);
         void Dispose();
     }

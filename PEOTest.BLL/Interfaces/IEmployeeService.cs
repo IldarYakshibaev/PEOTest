@@ -8,6 +8,7 @@ namespace PEOTest.BLL.Interfaces
     public interface IEmployeeService
     {
         IEnumerable<EmployeeDTO> GetAllEmployee();
+        int CreateEmployee(EmployeeDTO employeeDTO);
         void Dispose();
     }
 }

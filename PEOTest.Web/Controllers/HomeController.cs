@@ -70,12 +70,11 @@ namespace PEOTest.Web.Controllers
 
             EmployeeModel model = new EmployeeModel();
             model.Company = _companyService
-                .GetAllCompanySL();
+                .GetAllCompanySL().ToList();
+            model.Subdivision = _subdivisionService
+                .GetAllSubdivisionSL().ToList();
             model.Post = _postService
-                .GetAllPostSL();
-            /*IEnumerable<PostDTO> postDTO = _postService.GetAllPost();
-            model.Post = mapper
-                .Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDTO);*/
+                .GetAllPostSL().ToList();
 
             return View(model);
         }
@@ -91,15 +90,26 @@ namespace PEOTest.Web.Controllers
                     Id = model.PostId,
                     Name = model.PostName
                 };
-                postDTO.Id = _postService.CreatePost(postDTO);
+                model.PostId = _postService.CreatePost(postDTO);
                 return RedirectToAction("Index");
             }
             catch(ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
+
+            model.Company = _companyService
+                .GetAllCompanySL(model.CompanyId)
+                .ToList();
+
+            model.Subdivision = _subdivisionService
+                .GetAllSubdivisionSL(model.SubdivisionId)
+                .ToList();
+
             model.Post = _postService
-                .GetAllPostSL();
+                .GetAllPostSL(model.PostId)
+                .ToList();
+
             return View(model);
         }
 

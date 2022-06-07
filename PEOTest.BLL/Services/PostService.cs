@@ -35,20 +35,21 @@ namespace PEOTest.BLL.Services
             return mapper
                 .Map<IEnumerable<Post>, List<PostDTO>>(_context.Post.ToList());
         }
-        public List<SelectListItem> GetAllPostSL()
+        public IEnumerable<SelectListItem> GetAllPostSL(int postId = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list.Add(new SelectListItem() { 
                 Text = "", 
                 Value = "0", 
-                Selected = true 
+                Selected = postId == 0 ? true : false
             });
 
             list.AddRange(GetAllPost()
                 .Select(a => new SelectListItem()
                 {
                     Text = a.Name,
-                    Value = a.Id.ToString()
+                    Value = a.Id.ToString(),
+                    Selected = postId == a.Id ? true : false
                 }));
 
             return list;
@@ -57,10 +58,23 @@ namespace PEOTest.BLL.Services
         {
             if(postDTO.Id == 0 && (postDTO.Name == "" || postDTO.Name == null))
             {
-                throw new ValidationException("Не введена Должность", "PostName");
+                throw new ValidationException("Не указана Должность", "PostName");
             }
-            return 1;
-            throw new ValidationException("Ошибка", "");
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<PostDTO, Post>();
+            })
+                .CreateMapper();
+
+            Post post = mapper
+                .Map<PostDTO, Post>(postDTO);
+
+            _context.Post.Add(post);
+            _context.SaveChanges();
+
+            return post.Id;
+
+            //throw new ValidationException("Ошибка", "");
         }
 
         public void Dispose()

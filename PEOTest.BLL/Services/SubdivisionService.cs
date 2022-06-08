@@ -59,6 +59,10 @@ namespace PEOTest.BLL.Services
             {
                 throw new ValidationException("Не указано Подразделение", "SubdivisionName");
             }
+            if (subdivisionDTO.Id != 0)
+            {
+                return subdivisionDTO.Id;
+            }
 
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompanyDTO, Company>();

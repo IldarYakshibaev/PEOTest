@@ -61,6 +61,10 @@ namespace PEOTest.BLL.Services
             {
                 throw new ValidationException("Не указана Компания", "CompanyName");
             }
+            if(companyDTO.Id != 0)
+            {
+                return companyDTO.Id;
+            }
 
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompanyDTO, Company>();

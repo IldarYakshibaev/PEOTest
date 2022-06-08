@@ -50,9 +50,17 @@ namespace PEOTest.BLL.Services
             {
                 throw new ValidationException("Не указан Телефон", "Phone");
             }
+            if (_context.Employee.Any(a => a.Phone == employeeDTO.Phone))
+            {
+                throw new ValidationException("Телефон уже существует", "Phone");
+            }
             if (employeeDTO.Email == "" || employeeDTO.Email == null)
             {
                 throw new ValidationException("Не указана Почта", "Email");
+            }
+            if (_context.Employee.Any(a => a.Email == employeeDTO.Email))
+            {
+                throw new ValidationException("Почта занята", "Email");
             }
 
             var mapper = new MapperConfiguration(cfg => {

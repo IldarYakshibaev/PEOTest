@@ -85,12 +85,49 @@ namespace PEOTest.Web.Controllers
             //await db.SaveChangesAsync();
             try
             {
+                CompanyDTO companyDTO = new CompanyDTO()
+                {
+                    Id = model.CompanyId,
+                    Name = model.CompanyName
+                };
+                model.CompanyId = _companyService
+                    .CreateCompany(companyDTO);
+                companyDTO.Id = model.CompanyId;
+
+                SubdivisionDTO subdivisionDTO = new SubdivisionDTO()
+                {
+                    Id = model.SubdivisionId,
+                    Name = model.SubdivisionName
+                };
+                model.SubdivisionId = _subdivisionService
+                    .CreateSubdivision(subdivisionDTO);
+                subdivisionDTO.Id = model.SubdivisionId;
+
                 PostDTO postDTO = new PostDTO()
                 {
                     Id = model.PostId,
                     Name = model.PostName
                 };
-                model.PostId = _postService.CreatePost(postDTO);
+                model.PostId = _postService
+                    .CreatePost(postDTO);
+                postDTO.Id = model.PostId;
+
+                EmployeeDTO employeeDTO = new EmployeeDTO()
+                {
+                    Surname = model.Surname,
+                    Name = model.Name,
+                    Patronymic = model.Patronymic,
+                    Phone = model.Phone,
+                    Email = model.Email
+                };
+                employeeDTO.Id = _employeeService
+                    .CreateEmployee(employeeDTO);
+
+                _compEmpService.CreateComEmp(companyDTO,
+                    subdivisionDTO,
+                    postDTO,
+                    employeeDTO);
+
                 return RedirectToAction("Index");
             }
             catch(ValidationException ex)

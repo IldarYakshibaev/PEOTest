@@ -60,6 +60,10 @@ namespace PEOTest.BLL.Services
             {
                 throw new ValidationException("Не указана Должность", "PostName");
             }
+            if (postDTO.Id != 0)
+            {
+                return postDTO.Id;
+            }
 
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<PostDTO, Post>();

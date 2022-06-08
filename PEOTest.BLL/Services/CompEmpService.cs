@@ -37,6 +37,23 @@ namespace PEOTest.BLL.Services
             return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.ToList());
         }
 
+        public int CreateComEmp(CompanyDTO companyDTO,
+            SubdivisionDTO subdivisionDTO,
+            PostDTO postDTO,
+            EmployeeDTO employeeDTO)
+        {
+            CompEmp compEmp = new CompEmp()
+            {
+                CompanyId = companyDTO.Id,
+                SubdivisionId = subdivisionDTO.Id,
+                PostId = postDTO.Id,
+                EmployeeId = employeeDTO.Id
+            };
+            _context.CompEmp.Add(compEmp);
+            _context.SaveChanges();
+            return compEmp.Id;
+        }
+
         private void SampleDate()
         {
 

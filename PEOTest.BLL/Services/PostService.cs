@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PEOTest.BLL.DTO;
 using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
@@ -34,6 +35,23 @@ namespace PEOTest.BLL.Services
 
             return mapper
                 .Map<IEnumerable<Post>, List<PostDTO>>(_context.Post.ToList());
+        }
+        public PostDTO GetById(int id)
+        {
+            if (id == 0)
+            {
+                throw new ValidationException("Данная должность не существует", "");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmp, CompEmpDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Company, CompanyDTO>();
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<Subdivision, SubdivisionDTO>();
+            })
+                .CreateMapper();
+            return mapper.Map<Post, PostDTO>(_context.Post.FirstOrDefault(a => a.Id == id));
         }
         public IEnumerable<SelectListItem> GetAllPostSL(int postId = 0)
         {
@@ -79,6 +97,21 @@ namespace PEOTest.BLL.Services
             return post.Id;
 
             //throw new ValidationException("Ошибка", "");
+        }
+        public int Edit(PostDTO postDTO)
+        {
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<PostDTO, Post>();
+            })
+                .CreateMapper();
+
+            Post post = mapper
+                .Map<PostDTO, Post>(postDTO);
+
+            _context.Entry(post).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return post.Id;
         }
 
         public void Dispose()

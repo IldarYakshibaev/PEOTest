@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Post";
+}
+@model IEnumerable<PostViewModel>
+
+<div class="text-center">
+    <h1>Список должностей</h1>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-info btn-sm" type="button">Назад</a>
+    <table class="table">
+        <tr>
+            <th>
+                Название должности
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (PostViewModel emp in Model)
+        {
+            <tr>
+                <td>@emp.Name</td>
+                <td><a asp-action="Edit" asp-route-postId="@emp.Id">Редактировать</a></td>
+            </tr>
+        }
+    </table>
+</div>

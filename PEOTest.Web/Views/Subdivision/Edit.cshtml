@@ -1,0 +1,27 @@
+﻿@model PEOTest.Web.Models.SubdivisionViewModel
+
+<div class="edit-subdivision-form">
+    <h2>Редактирование подразделения</h2>
+    <form asp-action="Edit" asp-controller="Company">
+        <table>
+            <tr>
+                <td>
+                    <label asp-for="Name">Компания</label>
+                </td>
+                <td>
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" asp-for="Name" />
+                    </div>
+                </td>
+                <td>
+                    <span asp-validation-for="Name"></span>
+                </td>
+            </tr>
+        </table>
+        <input asp-for="Id" type="hidden" />
+        <div class="action-btn">
+            <button class="btn btn-info btn-sm" type="submit">Сохранить</button>
+            <a asp-action="Index" class="btn btn-info btn-sm" type="button">Назад</a>
+        </div>
+    </form>
+</div>

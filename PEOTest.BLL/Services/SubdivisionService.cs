@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PEOTest.BLL.DTO;
 using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
@@ -32,6 +33,23 @@ namespace PEOTest.BLL.Services
             })
                 .CreateMapper();
             return mapper.Map<IEnumerable<Subdivision>, List<SubdivisionDTO>>(_context.Subdivision.ToList());
+        }
+        public SubdivisionDTO GetById(int id)
+        {
+            if (id == 0)
+            {
+                throw new ValidationException("Данное подразделение не существует", "");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmp, CompEmpDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Company, CompanyDTO>();
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<Subdivision, SubdivisionDTO>();
+            })
+                .CreateMapper();
+            return mapper.Map<Subdivision, SubdivisionDTO>(_context.Subdivision.FirstOrDefault(a => a.Id == id));
         }
         public IEnumerable<SelectListItem> GetAllSubdivisionSL(int subdivisionId = 0)
         {
@@ -73,6 +91,21 @@ namespace PEOTest.BLL.Services
                 .Map<SubdivisionDTO, Subdivision>(subdivisionDTO);
 
             _context.Subdivision.Add(subdivision);
+            _context.SaveChanges();
+
+            return subdivision.Id;
+        }
+        public int Edit(SubdivisionDTO subdivisionDTO)
+        {
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<SubdivisionDTO, Subdivision>();
+            })
+                .CreateMapper();
+
+            Subdivision subdivision = mapper
+                .Map<SubdivisionDTO, Subdivision>(subdivisionDTO);
+
+            _context.Entry(subdivision).State = EntityState.Modified;
             _context.SaveChanges();
 
             return subdivision.Id;

@@ -94,13 +94,17 @@ body {
 
 .create-employee-form h2,
 .edit-employee-form h2,
-.edit-company-form h2 {
+.edit-company-form h2,
+.edit-subdivision-form h2,
+.edit-post-form h2 {
     text-align: center;
 }
 
 .create-employee-form table,
 .edit-employee-form table,
-.edit-company-form table {
+.edit-company-form table,
+.edit-subdivision-form table,
+.edit-post-form table {
     margin: auto;
 }
 

@@ -254,6 +254,11 @@ namespace PEOTest.Web.Controllers
             return View(model);
         }
 
+        public IActionResult Delete(int empId)
+        {
+            _compEmpService.Delete(empId);
+            return RedirectToAction("Index");
+        }
         public IActionResult Privacy()
         {
             return View();

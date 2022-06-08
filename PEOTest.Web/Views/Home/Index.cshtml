@@ -11,6 +11,8 @@
             <th>
             </th>
             <th>
+            </th>
+            <th>
                 Название компании
             </th>
             <th>
@@ -38,6 +40,7 @@
         @foreach (CompEmpViewModel emp in Model)
         {
             <tr>
+                <td><a asp-action="Delete" asp-route-empId="@emp.Id">Удалить</a></td>
                 <td><a asp-action="Edit" asp-route-empId="@emp.Id">Редактировать</a></td>
                 <td>@emp.Company.Name</td>
                 <td>@emp.Subdivision.Name</td>

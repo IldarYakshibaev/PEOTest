@@ -18,6 +18,7 @@ namespace PEOTest.BLL.Interfaces
             SubdivisionDTO subdivisionDTO,
             PostDTO postDTO,
             EmployeeDTO employeeDTO);
+        void Delete(int id);
         void Dispose();
     }
 }

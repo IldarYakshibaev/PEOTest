@@ -97,6 +97,17 @@ namespace PEOTest.BLL.Services
             return compEmp.Id;
         }
 
+        public void Delete(int id)
+        {
+            if (id == 0)
+            {
+                throw new ValidationException("Данный пользователь не существует", "");
+            }
+            CompEmp compEmp = _context.CompEmp.FirstOrDefault(a => a.Id == id);
+            _context.CompEmp.Remove(compEmp);
+            _context.SaveChanges();
+        }
+
         private void SampleDate()
         {
 

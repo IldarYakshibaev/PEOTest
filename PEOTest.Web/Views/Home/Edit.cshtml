@@ -5,36 +5,42 @@
 }
 
 <div class="edit-employee-form">
-    <h2>Редактирование пользователя</h2>
+    <h2>Редактирование сотрудника</h2>
     <form asp-action="Edit" asp-controller="Home">
         <table>
             <tr>
                 <td>
-                    <label asp-for="CompanyId">Компания</label>
+                    <label>Компания</label>
                 </td>
                 <td>
                     <select asp-for="CompanyId" asp-items="Model.Company"></select>
                     <input asp-for="CompanyName" type="hidden" />
+                </td>
+                <td>
                     <span asp-validation-for="CompanyName"></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="SubdivisionId">Подразделение</label>
+                    <label>Подразделение</label>
                 </td>
                 <td>
                     <select asp-for="SubdivisionId" asp-items="Model.Subdivision"></select>
                     <input asp-for="SubdivisionName" type="hidden" />
+                </td>
+                <td>
                     <span asp-validation-for="SubdivisionName"></span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="PostId">Должность</label>
+                    <label>Должность</label>
                 </td>
                 <td>
                     <select asp-for="PostId" asp-items="Model.Post"></select>
                     <input asp-for="PostName" type="hidden" />
+                </td>
+                <td>
                     <span asp-validation-for="PostName"></span>
                 </td>
             </tr>
@@ -43,7 +49,11 @@
                     <label asp-for="Surname">Фамилия</label>
                 </td>
                 <td>
-                    <input asp-for="Surname" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" asp-for="Surname" />
+                    </div>
+                </td>
+                <td>
                     <span asp-validation-for="Surname"></span>
                 </td>
             </tr>
@@ -52,7 +62,11 @@
                     <label asp-for="Name">Имя</label>
                 </td>
                 <td>
-                    <input asp-for="Name" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" asp-for="Name" />
+                    </div>
+                </td>
+                <td>
                     <span asp-validation-for="Name"></span>
                 </td>
             </tr>
@@ -61,7 +75,11 @@
                     <label asp-for="Patronymic">Отчество</label>
                 </td>
                 <td>
-                    <input asp-for="Patronymic" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" asp-for="Patronymic" />
+                    </div>
+                </td>
+                <td>
                     <span asp-validation-for="Patronymic"></span>
                 </td>
             </tr>
@@ -70,7 +88,11 @@
                     <label asp-for="Phone">Телефон</label>
                 </td>
                 <td>
-                    <input asp-for="Phone" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" asp-for="Phone" />
+                    </div>
+                </td>
+                <td>
                     <span asp-validation-for="Phone"></span>
                 </td>
             </tr>
@@ -79,17 +101,20 @@
                     <label asp-for="Email">Почта</label>
                 </td>
                 <td>
-                    <input asp-for="Email" />
-                    <span asp-validation-for="Email"></span>
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" asp-for="Email" />
+                    </div>
                 </td>
-            </tr>
-            <tr>
                 <td>
-                    <input type="submit" value="Отправить" />
+                    <span asp-validation-for="Email"></span>
                 </td>
             </tr>
         </table>
         <input asp-for="CompEmpId" type="hidden" />
         <input asp-for="EmployeeId" type="hidden" />
+        <div class="action-btn">
+            <button class="btn btn-info" type="submit">Отправить</button>
+            <a asp-action="Index" class="btn btn-info" type="button">Назад</a>
+        </div>
     </form>
 </div>

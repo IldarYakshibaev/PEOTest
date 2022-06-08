@@ -65,7 +65,7 @@ namespace PEOTest.BLL.Services
             }
 
             var mapper = new MapperConfiguration(cfg => {
-                cfg.CreateMap<CompanyDTO, Company>();
+                cfg.CreateMap<SubdivisionDTO, Subdivision>();
             })
                 .CreateMapper();
 

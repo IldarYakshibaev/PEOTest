@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PEOTest.BLL.DTO;
+using PEOTest.BLL.Helper;
 using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
 using PEOTest.DAL;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace PEOTest.BLL.Services
@@ -22,7 +24,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<CompEmpDTO> GetAllCompEmp(string sortName)
+        public IEnumerable<CompEmpDTO> GetAllCompEmp()
         {
             if (!_context.CompEmp.Any())
             {
@@ -38,7 +40,64 @@ namespace PEOTest.BLL.Services
             })
                 .CreateMapper();
 
-            return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.OrderBy(sortName).ToList());
+            return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.ToList());
+        }
+
+        public IEnumerable<CompEmpDTO> GetAllCompEmp(int companyId, int subdivisionId, int postId,
+            string surname, string name, string patronymic,
+            string phone, string email,
+            string sortName = "Employee.Surname")
+        {
+            if (!_context.CompEmp.Any())
+            {
+                SampleDate();
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmp, CompEmpDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Company, CompanyDTO>();
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<Subdivision, SubdivisionDTO>();
+            })
+                .CreateMapper();
+
+            Expression<Func<CompEmp, bool>> predicateWhere = a => 1 == 1;
+            if (companyId != 0)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.CompanyId == companyId);
+            }
+            if (subdivisionId != 0)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.SubdivisionId == subdivisionId);
+            }
+            if (postId != 0)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.PostId == postId);
+            }
+            if (surname != "" && surname != null)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.Employee.Surname.ToLower().Contains(surname.ToLower()));
+            }
+            if (name != "" && name != null)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.Employee.Name.ToLower().Contains(name.ToLower()));
+            }
+            if (patronymic != "" && patronymic != null)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.Employee.Patronymic.ToLower().Contains(patronymic.ToLower()));
+            }
+            if (phone != "" && phone != null)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.Employee.Phone.Contains(phone.ToLower()));
+            }
+            if (email != "" && email != null)
+            {
+                predicateWhere = predicateWhere.AndAlso(a => a.Employee.Email.ToLower().Contains(email.ToLower()));
+            }
+
+
+            return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.Where(predicateWhere).OrderBy(sortName).ToList());
         }
 
         public CompEmpDTO GetById(int id)

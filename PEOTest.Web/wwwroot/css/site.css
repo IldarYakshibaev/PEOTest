@@ -70,6 +70,10 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+.filter-comp-emp {
+    text-align: left;
+}
+
 .create-user {
     text-align: left;
 }
@@ -111,3 +115,28 @@ span[data-valmsg-for=PostName] {
 .field-validation-error {
     color: #b94a48;
 }
+
+.Ascending,
+.Descending {
+    white-space: nowrap;
+}
+
+.Ascending i,
+.Descending i{
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    margin-right: 5px;
+}
+
+.Ascending i {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.Descending i {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+

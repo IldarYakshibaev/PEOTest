@@ -1,10 +1,87 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model IEnumerable<CompEmpViewModel>
+@model EmpIndexViewModel
 
 <div class="text-center">
     <h1>Список пользователей</h1>
+    <form method="get">
+        <table class="filter-comp-emp">
+            <tr>
+                <td>
+                    <label>Компания:</label>
+                </td>
+                <td>
+                    <select name="companyId" asp-items="Model.Company"></select>
+                </td>
+                <td>
+                    <label>Фамилия: </label>
+                </td>
+                <td>
+                    <input name="surname" value="@Model.Surname" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Подразделение:</label>
+                </td>
+                <td>
+                    <select name="subdivisionId" asp-items="Model.Subdivision"></select>
+                </td>
+                <td>
+                    <label>Имя: </label>
+                </td>
+                <td>
+                    <input name="name" value="@Model.Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Должность: </label>
+                </td>
+                <td>
+                    <select name="postId" asp-items="Model.Post"></select>
+                </td>
+                <td>
+                    <label>Отчество: </label>
+                </td>
+                <td>
+                    <input name="patronymic" value="@Model.Patronymic" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <label>Телефон: </label>
+                </td>
+                <td>
+                    <input name="phone" value="@Model.Phone" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <label>Почта: </label>
+                </td>
+                <td>
+                    <input name="email" value="@Model.Email" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Поиск" />
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </form>
     <p class="create-user"><a asp-action="Create">Добавить пользователя</a></p>
     <table class="table">
         <tr>
@@ -13,31 +90,119 @@
             <th>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Company.Name" asp-route-sortOrder="@(ViewBag.SortName == "Company.Name" ? ViewBag.SortOrder : "")">Название компании</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Company.Name" 
+                   asp-route-sortOrder="@(Model.SortName == "Company.Name" ? Model.SortOrder : "")" 
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  
+                   class="@(Model.SortName == "Company.Name" ? Model.SortOrder : "")"><i></i>Название компании</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Subdivision.Name" asp-route-sortOrder="@(ViewBag.SortName == "Subdivision.Name" ? ViewBag.SortOrder : "")">Подразделение</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Subdivision.Name" 
+                   asp-route-sortOrder="@(Model.SortName == "Subdivision.Name" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Subdivision.Name" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Подразделение</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Post.Name" asp-route-sortOrder="@(ViewBag.SortName == "Post.Name" ? ViewBag.SortOrder : "")">Должность</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Post.Name" 
+                   asp-route-sortOrder="@(Model.SortName == "Post.Name" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Post.Name" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Должность</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Employee.Surname" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Surname" ? ViewBag.SortOrder : "")">Фамилия</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Employee.Surname" 
+                   asp-route-sortOrder="@(Model.SortName == "Employee.Surname" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Employee.Surname" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Фамилия</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Employee.Name" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Name" ? ViewBag.SortOrder : "")">Имя</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Employee.Name" 
+                   asp-route-sortOrder="@(Model.SortName == "Employee.Name" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Employee.Name" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Имя</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Employee.Patronymic" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Patronymic" ? ViewBag.SortOrder : "")">Отчество</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Employee.Patronymic"
+                   asp-route-sortOrder="@(Model.SortName == "Employee.Patronymic" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Employee.Patronymic" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Отчество</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Employee.Phone" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Phone" ? ViewBag.SortOrder : "")">Телефон</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Employee.Phone" 
+                   asp-route-sortOrder="@(Model.SortName == "Employee.Phone" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Employee.Phone" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Телефон</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortName="Employee.Email" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Email" ? ViewBag.SortOrder : "")">Почта</a>
+                <a asp-action="Index" 
+                   asp-route-sortName="Employee.Email" 
+                   asp-route-sortOrder="@(Model.SortName == "Employee.Email" ? Model.SortOrder : "")" 
+                   class="@(Model.SortName == "Employee.Email" ? Model.SortOrder : "")"
+                   asp-route-companyId="@Model.CompanyId" 
+                   asp-route-subdivisionId="@Model.SubdivisionId" 
+                   asp-route-postId="@Model.PostId" 
+                   asp-route-surname="@Model.Surname" 
+                   asp-route-name="@Model.Name" 
+                   asp-route-patronymic="@Model.Patronymic" 
+                   asp-route-phone="@Model.Phone"
+                   asp-route-email="@Model.Email"  ><i></i>Почта</a>
             </th>
         </tr>
-        @foreach (CompEmpViewModel emp in Model)
+        @foreach (CompEmpViewModel emp in Model.CompEmpList)
         {
             <tr>
                 <td><a asp-action="Delete" asp-route-empId="@emp.Id">Удалить</a></td>

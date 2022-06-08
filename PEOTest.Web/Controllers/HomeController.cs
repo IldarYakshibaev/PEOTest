@@ -39,10 +39,16 @@ namespace PEOTest.Web.Controllers
             _subdivisionService = subdivisionService;
         }
 
-        public IActionResult Index(string sortName = "Employee.Surname", string sortOrder = "Ascending")
+        public IActionResult Index(string sortName = "Employee.Surname", string sortOrder = "Ascending",
+            int companyId = 0, int subdivisionId = 0, int postId = 0, string surname = "", string name = "", 
+            string patronymic = "", string phone = "", string email = "")
         {
             IEnumerable<CompEmpDTO> compEmpDTO = _compEmpService
-                .GetAllCompEmp(sortName + " " + sortOrder);
+                .GetAllCompEmp(companyId, subdivisionId, postId, 
+                surname, name, patronymic, 
+                phone, email,
+                sortName + " " + sortOrder);
+
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();
@@ -52,9 +58,22 @@ namespace PEOTest.Web.Controllers
                 cfg.CreateMap<SubdivisionDTO, SubdivisionViewModel>();
             })
                 .CreateMapper();
-            List<CompEmpViewModel> model = mapper.Map<IEnumerable<CompEmpDTO>, List<CompEmpViewModel>>(compEmpDTO);
-            ViewBag.SortName = sortName;
-            ViewBag.SortOrder = sortOrder == "Ascending" ? "Descending" : "Ascending";
+
+            EmpIndexViewModel model = new EmpIndexViewModel();
+            model.CompEmpList = mapper.Map<IEnumerable<CompEmpDTO>, List<CompEmpViewModel>>(compEmpDTO);
+            model.SortName = sortName;
+            model.SortOrder = sortOrder == "Ascending" ? "Descending" : "Ascending";
+            model.CompanyId = companyId;
+            model.Company = _companyService.GetAllCompanySL(companyId).ToList();
+            model.SubdivisionId = subdivisionId;
+            model.Subdivision = _subdivisionService.GetAllSubdivisionSL(subdivisionId).ToList();
+            model.PostId = postId;
+            model.Post = _postService.GetAllPostSL(postId).ToList();
+            model.Surname = surname;
+            model.Name = name;
+            model.Patronymic = patronymic;
+            model.Phone = phone;
+            model.Email = email;
 
             return View(model);
         }

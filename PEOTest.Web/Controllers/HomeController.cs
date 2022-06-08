@@ -39,10 +39,10 @@ namespace PEOTest.Web.Controllers
             _subdivisionService = subdivisionService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sortName = "Employee.Surname", string sortOrder = "Ascending")
         {
             IEnumerable<CompEmpDTO> compEmpDTO = _compEmpService
-                .GetAllCompEmp();
+                .GetAllCompEmp(sortName + " " + sortOrder);
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();
@@ -53,6 +53,8 @@ namespace PEOTest.Web.Controllers
             })
                 .CreateMapper();
             List<CompEmpViewModel> model = mapper.Map<IEnumerable<CompEmpDTO>, List<CompEmpViewModel>>(compEmpDTO);
+            ViewBag.SortName = sortName;
+            ViewBag.SortOrder = sortOrder == "Ascending" ? "Descending" : "Ascending";
 
             return View(model);
         }

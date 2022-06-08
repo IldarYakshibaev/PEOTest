@@ -13,28 +13,28 @@
             <th>
             </th>
             <th>
-                Название компании
+                <a asp-action="Index" asp-route-sortName="Company.Name" asp-route-sortOrder="@(ViewBag.SortName == "Company.Name" ? ViewBag.SortOrder : "")">Название компании</a>
             </th>
             <th>
-                Подразделение
+                <a asp-action="Index" asp-route-sortName="Subdivision.Name" asp-route-sortOrder="@(ViewBag.SortName == "Subdivision.Name" ? ViewBag.SortOrder : "")">Подразделение</a>
             </th>
             <th>
-                Должность
+                <a asp-action="Index" asp-route-sortName="Post.Name" asp-route-sortOrder="@(ViewBag.SortName == "Post.Name" ? ViewBag.SortOrder : "")">Должность</a>
             </th>
             <th>
-                Фамилия
+                <a asp-action="Index" asp-route-sortName="Employee.Surname" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Surname" ? ViewBag.SortOrder : "")">Фамилия</a>
             </th>
             <th>
-                Имя
+                <a asp-action="Index" asp-route-sortName="Employee.Name" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Name" ? ViewBag.SortOrder : "")">Имя</a>
             </th>
             <th>
-                Отчество
+                <a asp-action="Index" asp-route-sortName="Employee.Patronymic" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Patronymic" ? ViewBag.SortOrder : "")">Отчество</a>
             </th>
             <th>
-                Телефон
+                <a asp-action="Index" asp-route-sortName="Employee.Phone" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Phone" ? ViewBag.SortOrder : "")">Телефон</a>
             </th>
             <th>
-                Почта
+                <a asp-action="Index" asp-route-sortName="Employee.Email" asp-route-sortOrder="@(ViewBag.SortName == "Employee.Email" ? ViewBag.SortOrder : "")">Почта</a>
             </th>
         </tr>
         @foreach (CompEmpViewModel emp in Model)

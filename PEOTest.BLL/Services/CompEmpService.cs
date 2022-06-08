@@ -8,6 +8,7 @@ using PEOTest.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Text;
 
 namespace PEOTest.BLL.Services
@@ -21,7 +22,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<CompEmpDTO> GetAllCompEmp()
+        public IEnumerable<CompEmpDTO> GetAllCompEmp(string sortName)
         {
             if (!_context.CompEmp.Any())
             {
@@ -36,7 +37,8 @@ namespace PEOTest.BLL.Services
                 cfg.CreateMap<Subdivision, SubdivisionDTO>();
             })
                 .CreateMapper();
-            return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.ToList());
+
+            return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.OrderBy(sortName).ToList());
         }
 
         public CompEmpDTO GetById(int id)

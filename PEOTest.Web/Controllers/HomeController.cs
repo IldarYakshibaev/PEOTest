@@ -44,7 +44,7 @@ namespace PEOTest.Web.Controllers
             string patronymic = "", string phone = "", string email = "")
         {
             IEnumerable<CompEmpDTO> compEmpDTO = _compEmpService
-                .GetAllCompEmp(companyId, subdivisionId, postId, 
+                .GetAll(companyId, subdivisionId, postId, 
                 surname, name, patronymic, 
                 phone, email,
                 sortName + " " + sortOrder);
@@ -64,11 +64,11 @@ namespace PEOTest.Web.Controllers
             model.SortName = sortName;
             model.SortOrder = sortOrder == "Ascending" ? "Descending" : "Ascending";
             model.CompanyId = companyId;
-            model.Company = _companyService.GetAllCompanySL(companyId).ToList();
+            model.Company = _companyService.GetAllSL(companyId).ToList();
             model.SubdivisionId = subdivisionId;
-            model.Subdivision = _subdivisionService.GetAllSubdivisionSL(subdivisionId).ToList();
+            model.Subdivision = _subdivisionService.GetAllSL(subdivisionId).ToList();
             model.PostId = postId;
-            model.Post = _postService.GetAllPostSL(postId).ToList();
+            model.Post = _postService.GetAllSL(postId).ToList();
             model.Surname = surname;
             model.Name = name;
             model.Patronymic = patronymic;
@@ -91,11 +91,11 @@ namespace PEOTest.Web.Controllers
 
             EmployeeModel model = new EmployeeModel();
             model.Company = _companyService
-                .GetAllCompanySL().ToList();
+                .GetAllSL().ToList();
             model.Subdivision = _subdivisionService
-                .GetAllSubdivisionSL().ToList();
+                .GetAllSL().ToList();
             model.Post = _postService
-                .GetAllPostSL().ToList();
+                .GetAllSL().ToList();
 
             return View(model);
         }
@@ -112,7 +112,7 @@ namespace PEOTest.Web.Controllers
                     Name = model.CompanyName
                 };
                 model.CompanyId = _companyService
-                    .CreateCompany(companyDTO);
+                    .Create(companyDTO);
                 companyDTO.Id = model.CompanyId;
 
                 SubdivisionDTO subdivisionDTO = new SubdivisionDTO()
@@ -121,7 +121,7 @@ namespace PEOTest.Web.Controllers
                     Name = model.SubdivisionName
                 };
                 model.SubdivisionId = _subdivisionService
-                    .CreateSubdivision(subdivisionDTO);
+                    .Create(subdivisionDTO);
                 subdivisionDTO.Id = model.SubdivisionId;
 
                 PostDTO postDTO = new PostDTO()
@@ -130,7 +130,7 @@ namespace PEOTest.Web.Controllers
                     Name = model.PostName
                 };
                 model.PostId = _postService
-                    .CreatePost(postDTO);
+                    .Create(postDTO);
                 postDTO.Id = model.PostId;
 
                 EmployeeDTO employeeDTO = new EmployeeDTO()
@@ -142,9 +142,9 @@ namespace PEOTest.Web.Controllers
                     Email = model.Email
                 };
                 employeeDTO.Id = _employeeService
-                    .CreateEmployee(employeeDTO);
+                    .Create(employeeDTO);
 
-                _compEmpService.CreateComEmp(companyDTO,
+                _compEmpService.Create(companyDTO,
                     subdivisionDTO,
                     postDTO,
                     employeeDTO);
@@ -157,15 +157,15 @@ namespace PEOTest.Web.Controllers
             }
 
             model.Company = _companyService
-                .GetAllCompanySL(model.CompanyId)
+                .GetAllSL(model.CompanyId)
                 .ToList();
 
             model.Subdivision = _subdivisionService
-                .GetAllSubdivisionSL(model.SubdivisionId)
+                .GetAllSL(model.SubdivisionId)
                 .ToList();
 
             model.Post = _postService
-                .GetAllPostSL(model.PostId)
+                .GetAllSL(model.PostId)
                 .ToList();
 
             return View(model);
@@ -192,13 +192,13 @@ namespace PEOTest.Web.Controllers
             };
 
             model.Company = _companyService
-                .GetAllCompanySL(model.CompanyId)
+                .GetAllSL(model.CompanyId)
                 .ToList();
             model.Subdivision = _subdivisionService
-                .GetAllSubdivisionSL(model.SubdivisionId)
+                .GetAllSL(model.SubdivisionId)
                 .ToList();
             model.Post = _postService
-                .GetAllPostSL(model.PostId)
+                .GetAllSL(model.PostId)
                 .ToList();
 
             return View(model);
@@ -214,7 +214,7 @@ namespace PEOTest.Web.Controllers
                     Name = model.CompanyName
                 };
                 model.CompanyId = _companyService
-                    .CreateCompany(companyDTO);
+                    .Create(companyDTO);
                 companyDTO.Id = model.CompanyId;
 
                 SubdivisionDTO subdivisionDTO = new SubdivisionDTO()
@@ -223,7 +223,7 @@ namespace PEOTest.Web.Controllers
                     Name = model.SubdivisionName
                 };
                 model.SubdivisionId = _subdivisionService
-                    .CreateSubdivision(subdivisionDTO);
+                    .Create(subdivisionDTO);
                 subdivisionDTO.Id = model.SubdivisionId;
 
                 PostDTO postDTO = new PostDTO()
@@ -232,7 +232,7 @@ namespace PEOTest.Web.Controllers
                     Name = model.PostName
                 };
                 model.PostId = _postService
-                    .CreatePost(postDTO);
+                    .Create(postDTO);
                 postDTO.Id = model.PostId;
 
                 EmployeeDTO employeeDTO = new EmployeeDTO()
@@ -245,9 +245,9 @@ namespace PEOTest.Web.Controllers
                     Email = model.Email
                 };
                 employeeDTO.Id = _employeeService
-                    .EditEmployee(employeeDTO);
+                    .Edit(employeeDTO);
 
-                _compEmpService.EditComEmp(model.CompEmpId,
+                _compEmpService.Edit(model.CompEmpId,
                     companyDTO,
                     subdivisionDTO,
                     postDTO,
@@ -261,15 +261,15 @@ namespace PEOTest.Web.Controllers
             }
 
             model.Company = _companyService
-                .GetAllCompanySL(model.CompanyId)
+                .GetAllSL(model.CompanyId)
                 .ToList();
 
             model.Subdivision = _subdivisionService
-                .GetAllSubdivisionSL(model.SubdivisionId)
+                .GetAllSL(model.SubdivisionId)
                 .ToList();
 
             model.Post = _postService
-                .GetAllPostSL(model.PostId)
+                .GetAllSL(model.PostId)
                 .ToList();
 
             return View(model);

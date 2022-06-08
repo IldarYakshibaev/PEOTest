@@ -7,17 +7,17 @@ namespace PEOTest.BLL.Interfaces
 {
     public interface ICompEmpService
     {
-        IEnumerable<CompEmpDTO> GetAllCompEmp();
-        IEnumerable<CompEmpDTO> GetAllCompEmp(int companyId, int subdivisionId, int postId,
+        IEnumerable<CompEmpDTO> GetAll();
+        IEnumerable<CompEmpDTO> GetAll(int companyId, int subdivisionId, int postId,
             string surname, string name, string patronymic,
             string phone, string email,
             string sortName = "Employee.Surname");
         CompEmpDTO GetById(int id);
-        int CreateComEmp(CompanyDTO companyDTO, 
+        int Create(CompanyDTO companyDTO, 
             SubdivisionDTO subdivisionDTO, 
             PostDTO postDTO, 
             EmployeeDTO employeeDTO);
-        int EditComEmp(int CompEmpId,
+        int Edit(int CompEmpId,
             CompanyDTO companyDTO,
             SubdivisionDTO subdivisionDTO,
             PostDTO postDTO,

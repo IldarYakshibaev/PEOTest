@@ -27,7 +27,7 @@ namespace PEOTest.Web.Controllers
         public ActionResult Index()
         {
             IEnumerable<PostDTO> postDTO = _postService
-                .GetAllPost();
+                .GetAll();
 
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();

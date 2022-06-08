@@ -8,10 +8,10 @@ namespace PEOTest.BLL.Interfaces
 {
     public interface ICompanyService
     {
-        IEnumerable<CompanyDTO> GetAllCompany();
+        IEnumerable<CompanyDTO> GetAll();
         CompanyDTO GetById(int id);
-        IEnumerable<SelectListItem> GetAllCompanySL(int companyId = 0);
-        int CreateCompany(CompanyDTO companyDTO);
+        IEnumerable<SelectListItem> GetAllSL(int id = 0);
+        int Create(CompanyDTO companyDTO);
         int Edit(CompanyDTO companyDTO);
         void Dispose();
     }

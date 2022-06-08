@@ -24,7 +24,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<CompEmpDTO> GetAllCompEmp()
+        public IEnumerable<CompEmpDTO> GetAll()
         {
             if (!_context.CompEmp.Any())
             {
@@ -43,7 +43,7 @@ namespace PEOTest.BLL.Services
             return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.ToList());
         }
 
-        public IEnumerable<CompEmpDTO> GetAllCompEmp(int companyId, int subdivisionId, int postId,
+        public IEnumerable<CompEmpDTO> GetAll(int companyId, int subdivisionId, int postId,
             string surname, string name, string patronymic,
             string phone, string email,
             string sortName = "Employee.Surname")
@@ -122,7 +122,7 @@ namespace PEOTest.BLL.Services
             return mapper.Map<CompEmp, CompEmpDTO>(_context.CompEmp.FirstOrDefault(a => a.Id == id));
         }
 
-        public int CreateComEmp(CompanyDTO companyDTO,
+        public int Create(CompanyDTO companyDTO,
             SubdivisionDTO subdivisionDTO,
             PostDTO postDTO,
             EmployeeDTO employeeDTO)
@@ -139,7 +139,7 @@ namespace PEOTest.BLL.Services
             return compEmp.Id;
         }
 
-        public int EditComEmp(int CompEmpId,
+        public int Edit(int CompEmpId,
             CompanyDTO companyDTO,
             SubdivisionDTO subdivisionDTO,
             PostDTO postDTO,

@@ -27,7 +27,7 @@ namespace PEOTest.Web.Controllers
         public ActionResult Index()
         {
             IEnumerable<CompanyDTO> companyDTO = _companyService
-                .GetAllCompany();
+                .GetAll();
 
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();

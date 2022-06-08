@@ -8,10 +8,10 @@ namespace PEOTest.BLL.Interfaces
 {
     public interface ISubdivisionService
     {
-        IEnumerable<SubdivisionDTO> GetAllSubdivision();
+        IEnumerable<SubdivisionDTO> GetAll();
         SubdivisionDTO GetById(int id);
-        IEnumerable<SelectListItem> GetAllSubdivisionSL(int subdivisionId = 0);
-        int CreateSubdivision(SubdivisionDTO subdivisionDTO);
+        IEnumerable<SelectListItem> GetAllSL(int id = 0);
+        int Create(SubdivisionDTO subdivisionDTO);
         int Edit(SubdivisionDTO subdivisionDTO);
         void Dispose();
     }

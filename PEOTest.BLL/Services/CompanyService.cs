@@ -22,7 +22,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<CompanyDTO> GetAllCompany()
+        public IEnumerable<CompanyDTO> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmp, CompEmpDTO>();
@@ -53,27 +53,27 @@ namespace PEOTest.BLL.Services
                 .CreateMapper();
             return mapper.Map<Company, CompanyDTO>(_context.Company.FirstOrDefault(a => a.Id == id));
         }
-        public IEnumerable<SelectListItem> GetAllCompanySL(int companyId = 0)
+        public IEnumerable<SelectListItem> GetAllSL(int id = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list.Add(new SelectListItem()
             {
                 Text = "",
                 Value = "0",
-                Selected = companyId == 0 ? true : false
+                Selected = id == 0 ? true : false
             });
 
-            list.AddRange(GetAllCompany()
+            list.AddRange(GetAll()
                 .Select(a => new SelectListItem()
                 {
                     Text = a.Name,
                     Value = a.Id.ToString(),
-                    Selected = companyId == a.Id ? true : false
+                    Selected = id == a.Id ? true : false
                 }));
 
             return list;
         }
-        public int CreateCompany(CompanyDTO companyDTO)
+        public int Create(CompanyDTO companyDTO)
         {
             if (companyDTO.Id == 0 && (companyDTO.Name == "" || companyDTO.Name == null))
             {

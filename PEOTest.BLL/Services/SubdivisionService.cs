@@ -22,7 +22,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<SubdivisionDTO> GetAllSubdivision()
+        public IEnumerable<SubdivisionDTO> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmp, CompEmpDTO>();
@@ -51,27 +51,27 @@ namespace PEOTest.BLL.Services
                 .CreateMapper();
             return mapper.Map<Subdivision, SubdivisionDTO>(_context.Subdivision.FirstOrDefault(a => a.Id == id));
         }
-        public IEnumerable<SelectListItem> GetAllSubdivisionSL(int subdivisionId = 0)
+        public IEnumerable<SelectListItem> GetAllSL(int id = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list.Add(new SelectListItem()
             {
                 Text = "",
                 Value = "0",
-                Selected = subdivisionId == 0 ? true : false
+                Selected = id == 0 ? true : false
             });
 
-            list.AddRange(GetAllSubdivision()
+            list.AddRange(GetAll()
                 .Select(a => new SelectListItem()
                 {
                     Text = a.Name,
                     Value = a.Id.ToString(),
-                    Selected = subdivisionId == a.Id ? true : false
+                    Selected = id == a.Id ? true : false
                 }));
 
             return list;
         }
-        public int CreateSubdivision(SubdivisionDTO subdivisionDTO)
+        public int Create(SubdivisionDTO subdivisionDTO)
         {
             if (subdivisionDTO.Id == 0 && (subdivisionDTO.Name == "" || subdivisionDTO.Name == null))
             {

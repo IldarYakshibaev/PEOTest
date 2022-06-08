@@ -22,7 +22,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<PostDTO> GetAllPost()
+        public IEnumerable<PostDTO> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmp, CompEmpDTO>();
@@ -53,26 +53,26 @@ namespace PEOTest.BLL.Services
                 .CreateMapper();
             return mapper.Map<Post, PostDTO>(_context.Post.FirstOrDefault(a => a.Id == id));
         }
-        public IEnumerable<SelectListItem> GetAllPostSL(int postId = 0)
+        public IEnumerable<SelectListItem> GetAllSL(int id = 0)
         {
             List<SelectListItem> list = new List<SelectListItem>();
             list.Add(new SelectListItem() { 
                 Text = "", 
                 Value = "0", 
-                Selected = postId == 0 ? true : false
+                Selected = id == 0 ? true : false
             });
 
-            list.AddRange(GetAllPost()
+            list.AddRange(GetAll()
                 .Select(a => new SelectListItem()
                 {
                     Text = a.Name,
                     Value = a.Id.ToString(),
-                    Selected = postId == a.Id ? true : false
+                    Selected = id == a.Id ? true : false
                 }));
 
             return list;
         }
-        public int CreatePost(PostDTO postDTO)
+        public int Create(PostDTO postDTO)
         {
             if(postDTO.Id == 0 && (postDTO.Name == "" || postDTO.Name == null))
             {

@@ -27,7 +27,7 @@ namespace PEOTest.Web.Controllers
         public ActionResult Index()
         {
             IEnumerable<SubdivisionDTO> subdivisionDTO = _subdivisionService
-                .GetAllSubdivision();
+                .GetAll();
 
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmpDTO, CompEmpViewModel>();

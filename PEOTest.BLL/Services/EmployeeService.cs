@@ -21,7 +21,7 @@ namespace PEOTest.BLL.Services
             _context = context;
         }
 
-        public IEnumerable<EmployeeDTO> GetAllEmployee()
+        public IEnumerable<EmployeeDTO> GetAll()
         {
             var mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<CompEmp, CompEmpDTO>();
@@ -33,7 +33,7 @@ namespace PEOTest.BLL.Services
                 .CreateMapper();
             return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(_context.Employee.ToList());
         }
-        public int CreateEmployee(EmployeeDTO employeeDTO)
+        public int Create(EmployeeDTO employeeDTO)
         {
             if (employeeDTO.Surname == "" || employeeDTO.Surname == null)
             {
@@ -76,7 +76,7 @@ namespace PEOTest.BLL.Services
             return employee.Id;
 
         }
-        public int EditEmployee(EmployeeDTO employeeDTO)
+        public int Edit(EmployeeDTO employeeDTO)
         {
             if (employeeDTO.Surname == "" || employeeDTO.Surname == null)
             {

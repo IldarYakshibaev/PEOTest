@@ -11,8 +11,9 @@
                 <td>
                     <label>Компания:</label>
                 </td>
-                <td>
+                <td class="edit">
                     <select class="custom-select custom-select-sm mb-1" name="companyId" asp-items="Model.Company"></select>
+                    <a asp-controller="Company" asp-action="Index" class="btn btn-info btn-sm" type="button">Редактировать</a>
                 </td>
                 <td>
                     <label>Фамилия: </label>
@@ -27,8 +28,9 @@
                 <td>
                     <label>Подразделение:</label>
                 </td>
-                <td>
+                <td class="edit">
                     <select class="custom-select custom-select-sm mb-1" name="subdivisionId" asp-items="Model.Subdivision"></select>
+                    <a asp-controller="Subdivision" asp-action="Index" class="btn btn-info btn-sm" type="button">Редактировать</a>
                 </td>
                 <td>
                     <label>Имя: </label>
@@ -43,8 +45,9 @@
                 <td>
                     <label>Должность: </label>
                 </td>
-                <td>
+                <td class="edit">
                     <select class="custom-select custom-select-sm mb-1" name="postId" asp-items="Model.Post"></select>
+                    <a asp-controller="Post" asp-action="Index" class="btn btn-info btn-sm" type="button">Редактировать</a>
                 </td>
                 <td>
                     <label>Отчество: </label>
@@ -84,8 +87,8 @@
                 </td>
             </tr>
         </table>
-        <a asp-action="Create" class="btn btn-info" type="button">Добавить сотрудника</a>
-        <button class="btn btn-info" type="submit">Поиск</button>
+        <a asp-action="Create" class="btn btn-info btn-sm" type="button">Добавить сотрудника</a>
+        <button class="btn btn-info btn-sm" type="submit">Поиск</button>
     </form>
     <table class="table">
         <tr>

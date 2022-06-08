@@ -93,13 +93,19 @@ body {
 }
 
 .create-employee-form h2,
-.edit-employee-form h2 {
+.edit-employee-form h2,
+.edit-company-form h2 {
     text-align: center;
 }
 
 .create-employee-form table,
-.edit-employee-form table {
+.edit-employee-form table,
+.edit-company-form table {
     margin: auto;
+}
+
+.filter-comp-emp .edit {
+    display: flex;
 }
 
 .action-btn {

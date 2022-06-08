@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PEOTest.BLL.DTO;
 using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
@@ -34,6 +35,23 @@ namespace PEOTest.BLL.Services
 
             return mapper
                 .Map<IEnumerable<Company>, List<CompanyDTO>>(_context.Company.ToList());
+        }
+        public CompanyDTO GetById(int id)
+        {
+            if (id == 0)
+            {
+                throw new ValidationException("Данная компания не существует", "");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmp, CompEmpDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Company, CompanyDTO>();
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<Subdivision, SubdivisionDTO>();
+            })
+                .CreateMapper();
+            return mapper.Map<Company, CompanyDTO>(_context.Company.FirstOrDefault(a => a.Id == id));
         }
         public IEnumerable<SelectListItem> GetAllCompanySL(int companyId = 0)
         {
@@ -75,6 +93,21 @@ namespace PEOTest.BLL.Services
                 .Map<CompanyDTO, Company>(companyDTO);
 
             _context.Company.Add(company);
+            _context.SaveChanges();
+
+            return company.Id;
+        }
+        public int Edit(CompanyDTO companyDTO)
+        {
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompanyDTO, Company>();
+            })
+                .CreateMapper();
+
+            Company company = mapper
+                .Map<CompanyDTO, Company>(companyDTO);
+
+            _context.Entry(company).State = EntityState.Modified;
             _context.SaveChanges();
 
             return company.Id;

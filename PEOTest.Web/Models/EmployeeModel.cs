@@ -9,6 +9,7 @@ namespace PEOTest.Web.Models
 {
     public class EmployeeModel
     {
+        public int CompEmpId { get; set; }
         public int CompanyId { get; set; }
         [Required(ErrorMessage = "Не указана Компания")]
         public string CompanyName { get; set; }
@@ -21,6 +22,7 @@ namespace PEOTest.Web.Models
         [Required (ErrorMessage = "Не указана Должность")]
         public string PostName { get; set; }
         public List<SelectListItem> Post { get; set; }
+        public int EmployeeId { get; set; }
         [Required(ErrorMessage = "Не указана Фамилия")]
         public string Surname { get; set; }
         [Required(ErrorMessage = "Не указано Имя")]

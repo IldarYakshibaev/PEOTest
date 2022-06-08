@@ -150,6 +150,110 @@ namespace PEOTest.Web.Controllers
             return View(model);
         }
 
+        public IActionResult Edit(int empId)
+        {
+
+            CompEmpDTO compEmpDTO = _compEmpService
+                .GetById(empId);
+
+            EmployeeModel model = new EmployeeModel()
+            {
+                CompEmpId = compEmpDTO.Id,
+                CompanyId = compEmpDTO.CompanyId,
+                SubdivisionId = compEmpDTO.SubdivisionId,
+                PostId = compEmpDTO.PostId,
+                EmployeeId = compEmpDTO.EmployeeId,
+                Surname = compEmpDTO.Employee.Surname,
+                Name = compEmpDTO.Employee.Name,
+                Patronymic = compEmpDTO.Employee.Patronymic,
+                Phone = compEmpDTO.Employee.Phone,
+                Email = compEmpDTO.Employee.Email
+            };
+
+            model.Company = _companyService
+                .GetAllCompanySL(model.CompanyId)
+                .ToList();
+            model.Subdivision = _subdivisionService
+                .GetAllSubdivisionSL(model.SubdivisionId)
+                .ToList();
+            model.Post = _postService
+                .GetAllPostSL(model.PostId)
+                .ToList();
+
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Edit(EmployeeModel model)
+        {
+            try
+            {
+                CompanyDTO companyDTO = new CompanyDTO()
+                {
+                    Id = model.CompanyId,
+                    Name = model.CompanyName
+                };
+                model.CompanyId = _companyService
+                    .CreateCompany(companyDTO);
+                companyDTO.Id = model.CompanyId;
+
+                SubdivisionDTO subdivisionDTO = new SubdivisionDTO()
+                {
+                    Id = model.SubdivisionId,
+                    Name = model.SubdivisionName
+                };
+                model.SubdivisionId = _subdivisionService
+                    .CreateSubdivision(subdivisionDTO);
+                subdivisionDTO.Id = model.SubdivisionId;
+
+                PostDTO postDTO = new PostDTO()
+                {
+                    Id = model.PostId,
+                    Name = model.PostName
+                };
+                model.PostId = _postService
+                    .CreatePost(postDTO);
+                postDTO.Id = model.PostId;
+
+                EmployeeDTO employeeDTO = new EmployeeDTO()
+                {
+                    Id = model.EmployeeId,
+                    Surname = model.Surname,
+                    Name = model.Name,
+                    Patronymic = model.Patronymic,
+                    Phone = model.Phone,
+                    Email = model.Email
+                };
+                employeeDTO.Id = _employeeService
+                    .EditEmployee(employeeDTO);
+
+                _compEmpService.EditComEmp(model.CompEmpId,
+                    companyDTO,
+                    subdivisionDTO,
+                    postDTO,
+                    employeeDTO);
+
+                return RedirectToAction("Index");
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+
+            model.Company = _companyService
+                .GetAllCompanySL(model.CompanyId)
+                .ToList();
+
+            model.Subdivision = _subdivisionService
+                .GetAllSubdivisionSL(model.SubdivisionId)
+                .ToList();
+
+            model.Post = _postService
+                .GetAllPostSL(model.PostId)
+                .ToList();
+
+            return View(model);
+        }
+
         public IActionResult Privacy()
         {
             return View();

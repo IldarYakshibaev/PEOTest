@@ -66,6 +66,10 @@
                 }
             });
 
+        if (this.options.inputName !== "") {
+            $(this.options.inputName).val(value);
+        }
+
         this._on(this.input, {
             autocompleteselect: function (event, ui) {
                 ui.item.option.selected = true;

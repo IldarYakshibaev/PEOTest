@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PEOTest.BLL.DTO;
 using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
@@ -70,6 +71,49 @@ namespace PEOTest.BLL.Services
             Employee employee = mapper.Map<EmployeeDTO, Employee>(employeeDTO);
 
             _context.Employee.Add(employee);
+            _context.SaveChanges();
+
+            return employee.Id;
+
+        }
+        public int EditEmployee(EmployeeDTO employeeDTO)
+        {
+            if (employeeDTO.Surname == "" || employeeDTO.Surname == null)
+            {
+                throw new ValidationException("Не указана Фамилия", "Surname");
+            }
+            if (employeeDTO.Name == "" || employeeDTO.Name == null)
+            {
+                throw new ValidationException("Не указано Имя", "Name");
+            }
+            if (employeeDTO.Patronymic == "" || employeeDTO.Patronymic == null)
+            {
+                throw new ValidationException("Не указано Отчество", "Patronymic");
+            }
+            if (employeeDTO.Phone == "" || employeeDTO.Phone == null)
+            {
+                throw new ValidationException("Не указан Телефон", "Phone");
+            }
+            if (_context.Employee.Any(a => a.Phone == employeeDTO.Phone && a.Id != employeeDTO.Id))
+            {
+                throw new ValidationException("Телефон уже существует", "Phone");
+            }
+            if (employeeDTO.Email == "" || employeeDTO.Email == null)
+            {
+                throw new ValidationException("Не указана Почта", "Email");
+            }
+            if (_context.Employee.Any(a => a.Email == employeeDTO.Email && a.Id != employeeDTO.Id))
+            {
+                throw new ValidationException("Почта занята", "Email");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<EmployeeDTO, Employee>();
+            })
+                .CreateMapper();
+            Employee employee = mapper.Map<EmployeeDTO, Employee>(employeeDTO);
+
+            _context.Entry(employee).State = EntityState.Modified;
             _context.SaveChanges();
 
             return employee.Id;

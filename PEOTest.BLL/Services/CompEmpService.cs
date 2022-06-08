@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using PEOTest.BLL.DTO;
+using PEOTest.BLL.Infrastructure;
 using PEOTest.BLL.Interfaces;
 using PEOTest.DAL;
 using PEOTest.DAL.Entities;
@@ -37,6 +39,28 @@ namespace PEOTest.BLL.Services
             return mapper.Map<IEnumerable<CompEmp>, List<CompEmpDTO>>(_context.CompEmp.ToList());
         }
 
+        public CompEmpDTO GetById(int id)
+        {
+            if (!_context.CompEmp.Any())
+            {
+                SampleDate();
+            }
+            if(id == 0)
+            {
+                throw new ValidationException("Данный пользователь не существует", "");
+            }
+
+            var mapper = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CompEmp, CompEmpDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<Company, CompanyDTO>();
+                cfg.CreateMap<Post, PostDTO>();
+                cfg.CreateMap<Subdivision, SubdivisionDTO>();
+            })
+                .CreateMapper();
+            return mapper.Map<CompEmp, CompEmpDTO>(_context.CompEmp.FirstOrDefault(a => a.Id == id));
+        }
+
         public int CreateComEmp(CompanyDTO companyDTO,
             SubdivisionDTO subdivisionDTO,
             PostDTO postDTO,
@@ -50,6 +74,25 @@ namespace PEOTest.BLL.Services
                 EmployeeId = employeeDTO.Id
             };
             _context.CompEmp.Add(compEmp);
+            _context.SaveChanges();
+            return compEmp.Id;
+        }
+
+        public int EditComEmp(int CompEmpId,
+            CompanyDTO companyDTO,
+            SubdivisionDTO subdivisionDTO,
+            PostDTO postDTO,
+            EmployeeDTO employeeDTO)
+        {
+            CompEmp compEmp = new CompEmp()
+            {
+                Id = CompEmpId,
+                CompanyId = companyDTO.Id,
+                SubdivisionId = subdivisionDTO.Id,
+                PostId = postDTO.Id,
+                EmployeeId = employeeDTO.Id
+            };
+            _context.Entry(compEmp).State = EntityState.Modified;
             _context.SaveChanges();
             return compEmp.Id;
         }

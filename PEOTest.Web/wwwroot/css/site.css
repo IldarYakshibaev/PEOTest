@@ -92,11 +92,13 @@ body {
     padding: 0px 10px;
 }
 
-.create-employee-form h2 {
+.create-employee-form h2,
+.edit-employee-form h2 {
     text-align: center;
 }
 
-.create-employee-form table {
+.create-employee-form table,
+.edit-employee-form table {
     margin: auto;
 }
 

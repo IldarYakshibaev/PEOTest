@@ -9,6 +9,8 @@
     <table class="table">
         <tr>
             <th>
+            </th>
+            <th>
                 Название компании
             </th>
             <th>
@@ -36,6 +38,7 @@
         @foreach (CompEmpViewModel emp in Model)
         {
             <tr>
+                <td><a asp-action="Edit" asp-route-empId="@emp.Id">Редактировать</a></td>
                 <td>@emp.Company.Name</td>
                 <td>@emp.Subdivision.Name</td>
                 <td>@emp.Post.Name</td>

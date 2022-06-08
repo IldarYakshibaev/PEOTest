@@ -8,9 +8,15 @@ namespace PEOTest.BLL.Interfaces
     public interface ICompEmpService
     {
         IEnumerable<CompEmpDTO> GetAllCompEmp();
+        CompEmpDTO GetById(int id);
         int CreateComEmp(CompanyDTO companyDTO, 
             SubdivisionDTO subdivisionDTO, 
             PostDTO postDTO, 
+            EmployeeDTO employeeDTO);
+        int EditComEmp(int CompEmpId,
+            CompanyDTO companyDTO,
+            SubdivisionDTO subdivisionDTO,
+            PostDTO postDTO,
             EmployeeDTO employeeDTO);
         void Dispose();
     }

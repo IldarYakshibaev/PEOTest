@@ -9,6 +9,7 @@ namespace PEOTest.BLL.Interfaces
     {
         IEnumerable<EmployeeDTO> GetAllEmployee();
         int CreateEmployee(EmployeeDTO employeeDTO);
+        int EditEmployee(EmployeeDTO employeeDTO);
         void Dispose();
     }
 }

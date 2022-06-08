@@ -12,13 +12,15 @@
                     <label>Компания:</label>
                 </td>
                 <td>
-                    <select name="companyId" asp-items="Model.Company"></select>
+                    <select class="custom-select custom-select-sm mb-1" name="companyId" asp-items="Model.Company"></select>
                 </td>
                 <td>
                     <label>Фамилия: </label>
                 </td>
                 <td>
-                    <input name="surname" value="@Model.Surname" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" name="surname" value="@Model.Surname" />
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -26,13 +28,15 @@
                     <label>Подразделение:</label>
                 </td>
                 <td>
-                    <select name="subdivisionId" asp-items="Model.Subdivision"></select>
+                    <select class="custom-select custom-select-sm mb-1" name="subdivisionId" asp-items="Model.Subdivision"></select>
                 </td>
                 <td>
                     <label>Имя: </label>
                 </td>
                 <td>
-                    <input name="name" value="@Model.Name" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" name="name" value="@Model.Name" />
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -40,13 +44,15 @@
                     <label>Должность: </label>
                 </td>
                 <td>
-                    <select name="postId" asp-items="Model.Post"></select>
+                    <select class="custom-select custom-select-sm mb-1" name="postId" asp-items="Model.Post"></select>
                 </td>
                 <td>
                     <label>Отчество: </label>
                 </td>
                 <td>
-                    <input name="patronymic" value="@Model.Patronymic" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" name="patronymic" value="@Model.Patronymic" />
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -58,7 +64,9 @@
                     <label>Телефон: </label>
                 </td>
                 <td>
-                    <input name="phone" value="@Model.Phone" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" name="phone" value="@Model.Phone" />
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -70,12 +78,14 @@
                     <label>Почта: </label>
                 </td>
                 <td>
-                    <input name="email" value="@Model.Email" />
+                    <div class="input-group input-group-sm mb-1">
+                        <input class="form-control" aria-label="Small" name="email" value="@Model.Email" />
+                    </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="submit" value="Поиск" />
+                    <button class="btn btn-info" type="submit">Поиск</button>
                 </td>
                 <td>
                 </td>
